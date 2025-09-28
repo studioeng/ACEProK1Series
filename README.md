@@ -103,6 +103,7 @@ Connect the ACE Pro to a regular USB port and configure the sensor pins accordin
 | Command | Description | Parameters |
 |---------|-------------|------------|
 | `ACE_CHANGE_TOOL` | Manual tool change | `TOOL=<0-3\|-1>` |
+| `ACE_CHANGE_SPOOL` | Change spool (retract filament back to ACEPRO) | `INDEX=<0-3>` |
 | `ACE_FEED` | Feed filament | `INDEX=<0-3> LENGTH=<mm> [SPEED=<mm/s>]` |
 | `ACE_RETRACT` | Retract filament | `INDEX=<0-3> LENGTH=<mm> [SPEED=<mm/s>]` |
 | `ACE_GET_CURRENT_INDEX` | Get current slot | Returns: `-1, 0, 1, 2, 3` |
@@ -241,25 +242,6 @@ This project is licensed under the same terms as the original projects it's base
 ---
 
 **⚠️ Note**: This is a work-in-progress driver. Please test thoroughly and report any issues you encounter.
-
-##############################################
-
-Spool Change Feature:
-
-ACE_CHANGE_SPOOL: Change spool for a specific index - INDEX= (retracts filament from tube, unloads if loaded first)
-
-This command helps with manual spool changes by:
-- Automatically unloading the tool first if the specified index is currently loaded (T-1)
-- Retracting filament from the bowden tube if the slot is not empty
-- Uses the configurable bowden_tube_length parameter (default: 1000mm)
-- Provides status feedback throughout the process
-
-Example usage:
-ACE_CHANGE_SPOOL INDEX=0  (change spool for slot 0)
-ACE_CHANGE_SPOOL INDEX=2  (change spool for slot 2)
-
-Configuration in ace.cfg:
-bowden_tube_length: 1000  # Length in mm to retract during spool change
 
 
 
