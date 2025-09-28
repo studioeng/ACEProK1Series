@@ -6,6 +6,10 @@ AND
 
 https://github.com/utkabobr/DuckACE.git
 
+Base driver fork:
+
+https://github.com/BlackFrogKok/BunnyACE
+
 
 #The driver
 
@@ -97,6 +101,25 @@ Inventory managment:
 ACE_SET_SLOT:  Set slot inventory: INDEX= COLOR= MATERIAL= TEMP= | Set status to empty with EMPTY=1
 
 ACE_QUERY_SLOTS: Query all slot inventory as JSON
+
+##############################################
+
+Spool Change Feature:
+
+ACE_CHANGE_SPOOL: Change spool for a specific index - INDEX= (retracts filament from tube, unloads if loaded first)
+
+This command helps with manual spool changes by:
+- Automatically unloading the tool first if the specified index is currently loaded (T-1)
+- Retracting filament from the bowden tube if the slot is not empty
+- Uses the configurable bowden_tube_length parameter (default: 1000mm)
+- Provides status feedback throughout the process
+
+Example usage:
+ACE_CHANGE_SPOOL INDEX=0  (change spool for slot 0)
+ACE_CHANGE_SPOOL INDEX=2  (change spool for slot 2)
+
+Configuration in ace.cfg:
+bowden_tube_length: 1000  # Length in mm to retract during spool change
 
 
 

@@ -27,6 +27,7 @@ class BunnyAce:
         self.toolchange_load_length = config.getint('toolchange_load_length', 630)
         self.toolhead_sensor_to_nozzle_length = config.getint('toolhead_sensor_to_nozzle', 0)
         # self.extruder_to_blade_length = config.getint('extruder_to_blade', None)
+        self.bowden_tube_length = config.getint('bowden_tube_length', 1000)
 
         self.max_dryer_temperature = config.getint('max_dryer_temperature', 55)
 
@@ -156,6 +157,9 @@ class BunnyAce:
         self.gcode.register_command(
             'ACE_TEST_RUNOUT_SENSOR', self.cmd_ACE_TEST_RUNOUT_SENSOR,
             desc=self.cmd_ACE_TEST_RUNOUT_SENSOR_help)
+        self.gcode.register_command(
+            'ACE_CHANGE_SPOOL', self.cmd_ACE_CHANGE_SPOOL,
+            desc=self.cmd_ACE_CHANGE_SPOOL_help)
 
 
     def _calc_crc(self, buffer):
@@ -628,6 +632,7 @@ class BunnyAce:
         was = self.variables.get('ace_current_index', -1)
         if was == tool:
             gcmd.respond_info('ACE: Not changing tool, current index already ' + str(tool))
+            self._enable_feed_assist(tool)
             return
 
         if tool != -1:
@@ -946,6 +951,52 @@ class BunnyAce:
                 if e_move > 0 and self.endless_spool_runout_detected:
                     self._endless_spool_check_distance(e_move)
 
+    cmd_ACE_CHANGE_SPOOL_help = 'Change spool for a specific index - INDEX= (retracts filament from tube, unloads if loaded first)'
+
+    def cmd_ACE_CHANGE_SPOOL(self, gcmd):
+        index = gcmd.get_int('INDEX', None)
+        
+        if index is None:
+            raise gcmd.error('INDEX parameter is required')
+        
+        if index < 0 or index >= 4:
+            raise gcmd.error('Wrong index - must be 0-3')
+        
+        gcmd.respond_info(f"ACE: Changing spool for index {index}")
+        
+        # Check if this slot is currently loaded (active tool)
+        current_tool = self.variables.get('ace_current_index', -1)
+        
+        if current_tool == index:
+            # If this is the currently loaded tool, unload it first (T-1)
+            gcmd.respond_info(f"ACE: Index {index} is currently loaded, unloading first...")
+            # Create a proper gcode command to unload the tool
+            unload_cmd = "ACE_CHANGE_TOOL TOOL=-1"
+            self.gcode.run_script_from_command(unload_cmd)
+            gcmd.respond_info("ACE: Tool unloaded")
+        
+        # Check if slot is not empty (has filament loaded in the system)
+        slot_status = None
+        if hasattr(self, '_info') and self._info and 'slots' in self._info:
+            slot_status = self._info['slots'][index]['status']
+        
+        inventory_status = self.inventory[index]['status']
+        
+        # If slot is not empty or has filament in the system, retract it
+        if (slot_status and slot_status != 'empty') or (inventory_status and inventory_status != 'empty'):
+            gcmd.respond_info(f"ACE: Retracting filament from bowden tube for index {index}")
+            gcmd.respond_info(f"ACE: Retracting {self.bowden_tube_length}mm at {self.retract_speed}mm/min")
+            
+            try:
+                self._retract(index, self.bowden_tube_length, self.retract_speed)
+                gcmd.respond_info(f"ACE: Filament retracted from index {index}")
+            except Exception as e:
+                gcmd.respond_info(f"ACE: Error during retraction: {str(e)}")
+                raise gcmd.error(f"Failed to retract filament: {str(e)}")
+        else:
+            gcmd.respond_info(f"ACE: Index {index} is already empty, no retraction needed")
+        
+        gcmd.respond_info(f"ACE: Spool change completed for index {index}")
 
 
 def load_config(config):
