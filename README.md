@@ -1,6 +1,6 @@
-# ACE PRO SV08 - Anycubic Color Engine Pro Driver for Klipper
+# ACE PRO K1 Max with CFS upgrade Kit - Anycubic Color Engine Pro Driver for Klipper
 
-A comprehensive Klipper driver for the Anycubic Color Engine Pro multi-material unit, optimized for SOVOL SV08 and other Klipper-based 3D printers.
+A comprehensive Klipper driver for the Anycubic Color Engine Pro multi-material unit, optimized for K1 Max with CFS upgrade kit and other Klipper-based 3D printers.
 
 ## 📋 Table of Contents
 
@@ -39,6 +39,7 @@ https://github.com/BlackFrogKok/BunnyACE
 - **Hotend**: Compatible with filament cutting (recommended)
 
 ### Recommended Hardware
+- **K1 Series CFS upgrade kit**: [K1 Series CFS upgrade Kit](https://a.co/d/8LgaJeT)
 - **Filament Splitter**: [BAMBULAB filament splitter](https://www.printables.com/model/1133951-v4-toolhead-ideal-for-mmu-for-sv08-and-any-voron-g)
 - **Toolhead**: [Nadir extruder for SV08/Voron](https://www.printables.com/model/1133951-v4-toolhead-ideal-for-mmu-for-sv08-and-any-voron-g)
 - **Cutting Mod**: [Mr Goodman BAMBULAB hotend with cutter](https://www.printables.com/model/1099177-sovol-sv08-head-filament-cutting-mod)
@@ -48,7 +49,7 @@ https://github.com/BlackFrogKok/BunnyACE
 ### 1. Clone Repository
 ```bash
 cd ~
-git clone https://github.com/szkrisz/ACEPROSV08.git
+git clone https://github.com/swilsonnc/ACEPROSV08.git
 ```
 
 ### 2. Create Symbolic Links
