@@ -41,8 +41,6 @@ https://github.com/szkrisz/ACEPROSV08
 ### Recommended Hardware
 - **K1 Series CFS upgrade kit**: [K1 Series CFS upgrade Kit](https://a.co/d/8LgaJeT)
 - **Filament Splitter**: [BAMBULAB filament splitter](https://www.printables.com/model/1133951-v4-toolhead-ideal-for-mmu-for-sv08-and-any-voron-g)
-- **Toolhead**: [Nadir extruder for SV08/Voron](https://www.printables.com/model/1133951-v4-toolhead-ideal-for-mmu-for-sv08-and-any-voron-g)
-- **Cutting Mod**: [Mr Goodman BAMBULAB hotend with cutter](https://www.printables.com/model/1099177-sovol-sv08-head-filament-cutting-mod)
 
 ## 📦 Installation
 
@@ -52,7 +50,7 @@ cd ~
 git clone https://github.com/swilsonnc/ACEPROK1Max.git
 ```
 
-### 2. Create Symbolic Links
+### 2. Create Symbolic Links and copy files
 ```bash
 # Link the driver to Klipper extras
 ln -sf ~/ACEPROK1Max/extras/ace.py /usr/share/klipper/klippy/extras/ace.py
@@ -63,9 +61,6 @@ cp ~/ACEPROK1Max/ace.cfg /usr/data/printer_data/config/ace.cfg
 
 ### 3. Update Python Dependencies
 ```bash
-# Activate Klipper virtual environment
-source ~/klippy-env/bin/activate
-
 # Update pyserial to version 3.5 or higher
 pip3 install pyserial==3.5
 ```
