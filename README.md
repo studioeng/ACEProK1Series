@@ -86,6 +86,12 @@ sensor_type: temperature_ace
 min_temp: 0
 max_temp: 70
 ```
+Add in your `printer.cfg`for correct temperatures when purging and cutting:
+```ini
+[gcode_macro _GLOBAL_VARS]
+variable_extruder_target: 0.0
+gcode:
+```
 
 ### 5. Update Moonraker Configuration
 Add to the bottom of your 'moonraker.conf':
