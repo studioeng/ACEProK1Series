@@ -92,6 +92,10 @@ Add in your `printer.cfg`for correct temperatures when purging and cutting:
 variable_extruder_target: 0.0
 gcode:
 ```
+Add this near the top of your start_print macro under the initial {% set extruder_temp line
+```ini
+SET_GCODE_VARIABLE MACRO=_GLOBAL_VARS VARIABLE=extruder_target VALUE={params.EXTRUDER_TEMP}
+```
 
 ### 5. Update Moonraker Configuration
 Add to the bottom of your 'moonraker.conf':
