@@ -223,7 +223,7 @@ ACE_QUERY_SLOTS
 ### Sensor Installation
 1. **Extruder Sensor**: The first sensor in the extruder  
 2. **Toolhead Sensor**: The bottom sensor in the extruder at the cutter
-3. **Wiring**: Connect sensors to configured pins with pullup resistors
+3. **Wiring**: Connect sensors to toolhead board in spots designated in cfs upgrade kit instructions
 
 ### USB Connection
 Connect the ACE Pro unit to your printer's host computer via USB. The driver will automatically detect the device.
