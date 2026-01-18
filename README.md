@@ -57,13 +57,13 @@ cd ~
 git clone https://github.com/swilsonnc/ACEPROK1Max.git
 ```
 
-### 2. Update Python Dependencies
+### 2. Install
 ```bash
 # Run install.sh
 ./ACEPROK1Max/install.sh
 ```
 
-### 4. Update Printer Configuration
+### 3. Update Printer Configuration
 Add near the top of your `printer.cfg`:
 ```ini
 [include ace.cfg]
