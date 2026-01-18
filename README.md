@@ -57,20 +57,10 @@ cd ~
 git clone https://github.com/swilsonnc/ACEPROK1Max.git
 ```
 
-### 2. Create Symbolic Links and copy files
+### 2. Update Python Dependencies
 ```bash
-# Link the driver to Klipper extras
-ln -sf ~/ACEPROK1Max/extras/ace.py /usr/share/klipper/klippy/extras/ace.py
-ln -sf ~/ACEPROK1Max/extras/temperature_ace.py /usr/share/klipper/klippy/extras/temperature_ace.py
-
-# Copy the configuration file
-cp ~/ACEPROK1Max/ace.cfg /usr/data/printer_data/config/ace.cfg
-```
-
-### 3. Update Python Dependencies
-```bash
-# Update pyserial to version 3.5 or higher
-pip3 install pyserial==3.5
+# Run install.sh
+./ACEPROK1Max/install.sh
 ```
 
 ### 4. Update Printer Configuration
@@ -87,6 +77,18 @@ sensor_type: temperature_ace
 min_temp: 0
 max_temp: 70
 ```
+Comment out [filament_switch_sensor filament_sensor] section in printer.cfg
+```ini
+#[filament_switch_sensor filament_sensor]
+#pause_on_runout: false
+#switch_pin: !PC15
+#runout_gcode:
+#  {% if printer.extruder.can_extrude|lower == 'true' %}
+#    G91
+#    G0 E30 F600
+#    G90
+#  {% endif %}
+```
 Add in your `printer.cfg`for correct temperatures when purging and cutting:
 ```ini
 [gcode_macro _GLOBAL_VARS]
@@ -96,16 +98,6 @@ gcode:
 Add this near the top of your start_print macro under the initial {% set extruder_temp line
 ```ini
 SET_GCODE_VARIABLE MACRO=_GLOBAL_VARS VARIABLE=extruder_target VALUE={params.EXTRUDER_TEMP}
-```
-
-### 5. Update Moonraker Configuration
-Add to the bottom of your 'moonraker.conf':
-```ini
-[update_manager ACEPROK1Max]
-type: git_repo
-path: /root/ACEPROK1Max
-origin: https://github.com/swilsonnc/ACEPROK1Max
-managed_services: klipper
 ```
 
 ### Pin Configuration
