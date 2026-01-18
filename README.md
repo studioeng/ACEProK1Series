@@ -32,6 +32,7 @@ This project is based on excellent work from:
 - **Feed Assist**: Advanced filament feeding control
 - **Runout Detection**: Dual sensor runout detection system
 - **Inventory Tracking**: Material type, color, and temperature management
+- **Temperature Monitoring**: Ace chamber temp added to Temperatures panel
 - **Debug Tools**: Comprehensive diagnostic commands
 - **Seamless Integration**: Native Klipper integration
 
