@@ -7,6 +7,7 @@ A comprehensive Klipper driver for the Anycubic Color Engine Pro multi-material 
 - [Credits](#-credits)
 - [Features](#-features)
 - [Hardware Requirements](#-hardware-requirements)
+- [Images](#images)
 - [Installation](#-installation)
 - [Pin Configuration](#pin-configuration)
 - [Commands Reference](#-commands-reference)
