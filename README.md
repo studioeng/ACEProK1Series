@@ -52,11 +52,11 @@ This project is based on excellent work from:
 ## Images
 <picture>
   <!-- Source for WebP format on large screens -->
-  <source srcset="large_image.webp" type="image/webp" media="(min-width: 800px)">
+  <source srcset="IMG_6935.jpeg" type="image/jpeg" media="(min-width: 800px)">
   <!-- Source for WebP format on smaller screens -->
   <source srcset="small_image.webp" type="image/webp">
   <!-- Fallback for browsers without WebP support or if no source matches -->
-  <img src="default_image.jpg" alt="Description of the image">
+  <img src="IMG_6935.jpeg" alt="">
 </picture>
 
 ## 📦 Installation
