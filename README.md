@@ -51,7 +51,9 @@ This project is based on excellent work from:
 
 ## Images
 <picture>
-  <img src="img/IMG_6935.jpeg" alt="" style="width:240;">
+  <img src="img/IMG_6935.jpeg" alt="" style="width:auto;">
+  <img src="img/IMG_6936.jpeg" alt="" style="width:auto;">
+  <img src="img/IMG_6937.jpeg" alt="" style="width:auto;">
 </picture>
 
 ## 📦 Installation
