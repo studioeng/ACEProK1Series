@@ -51,8 +51,7 @@ This project is based on excellent work from:
 
 ## Images
 <picture>
-  <source srcset="img/IMG_6935.jpeg" type="image/jpeg" media="(min-width: 480px)">
-  <img src="img/IMG_6935.jpeg" alt="">
+  <img src="img/IMG_6935.jpeg" alt="" style="width:240;">
 </picture>
 
 ## 📦 Installation
