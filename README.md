@@ -4,6 +4,9 @@ A comprehensive Klipper driver for the Anycubic Color Engine Pro multi-material 
 
 ## NOTE: DO NOT INSTALL THE CFS FIRMWARE THAT COMES WITH THE KIT.  THIS HAS NOT BEEN TESTED WITH THAT FIRMWARE.  ONLY USE THE NON-CFS FIRMWARE.
 
+I now have a K2 Plus with CFS and have been working with it.  I still have my K1 Max and ACE (and still use it) and will continue answering what questions come up or fixing any bugs
+that get found but won't be actively updating this.  I have the source code for the mainsail and fluidd configs if someone wants to work on improving them.
+
 ## 📋 Table of Contents
 
 - [Credits](#-credits)
