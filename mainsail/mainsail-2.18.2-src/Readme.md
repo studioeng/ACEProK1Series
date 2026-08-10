@@ -8,9 +8,12 @@ Dashboard.vue goes into \src\pages
 Once in the correct places you have to use npm to compile it.
 Open a cmd prompt and navigate to the root folder of the src files.
 Run:
+
 npm ci
+
 this will clean install the dependencies for compiling
 Then run:
+
 npm run build
 
 This will create a dist folder inside the mainsail folder.
