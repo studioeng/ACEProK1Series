@@ -1,8 +1,11 @@
 The individual files are the ones that were modified.  The AcePanel.vue is the important one and the rest get the panel to show up on the Mainsail Dashboard.
 
 AcePanel.vue goes into \src\components\panels
+
 index.ts and types.ts go into \src\store\gui
+
 variables.ts goes into \src\store
+
 Dashboard.vue goes into \src\pages
 
 Once in the correct places you have to use npm to compile it.
