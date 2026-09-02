@@ -13,7 +13,7 @@ fi
 KLIPPER_HOME="${HOME}/klipper"
 KLIPPER_CONFIG_HOME="${HOME}/printer_data/config"
 MOONRAKER_CONFIG_DIR="${HOME}/printer_data/config"
-SRCDIR="$PWD"
+SRCDIR="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 KLIPPER_ENV="${HOME}/klippy-env/bin"
 
 # Для MIPS систем
@@ -137,6 +137,16 @@ copy_config() {
     echo -n "Copying config file... "
     if [ ! -f "${KLIPPER_CONFIG_HOME}/ace.cfg" ]; then
         if cp "${SRCDIR}/ace.cfg" "${KLIPPER_CONFIG_HOME}/"; then
+            echo "[OK]"
+        else
+            echo "[FAILED]"
+            exit 1
+        fi
+    else
+        echo "[SKIPPED] (already exists)"
+    fi
+    if [ ! -f "${KLIPPER_CONFIG_HOME}/saved_variables.cfg" ]; then
+        if cp "${SRCDIR}/saved_variables.cfg" "${KLIPPER_CONFIG_HOME}/"; then
             echo "[OK]"
         else
             echo "[FAILED]"
@@ -269,27 +279,6 @@ fi
 
 start_service "$KLIPPER_SERVICE"
 
-echo "Operation completed successfully"
-echo "--------------------------------------------------------------------------------"
-echo "Add [include ace.cfg] near the top of your printer.cfg"
-echo "--------------------------------------------------------------------------------"
-echo "Comment out [filament_switch_sensor filament_sensor] section in printer.cfg"
-echo "--------------------------------------------------------------------------------"
-echo "Add [temperature_ace] near bottom of printer.cfg"
-echo "--------------------------------------------------------------------------------"
-echo "Add [temerature_sensor ace_chamber]"
-echo "    sensor_type: temperature_ace"
-echo "    min_temp: 0"
-echo "    max_temp: 70"
-echo "to printer.cfg"
-echo "--------------------------------------------------------------------------------"
-echo "Add the following to printer.cfg"
-echo "    [gcode_macro _GLOBAL_VARS]"
-echo "    variable_extruder_target: 0.0"
-echo "    gcode:"
-echo "--------------------------------------------------------------------------------"
-echo "Add this near the top of your start_print macro under the initial {% set extruder_temp } line"
-echo "    SET_GCODE_VARIABLE MACRO=_GLOBAL_VARS VARIABLE=extruder_target VALUE={params.EXTRUDER_TEMP}"
-echo "-"
+echo "Operation completed successfully.  Please refer to the ACEPROK1Max Github page for more info."
 exit 0
 

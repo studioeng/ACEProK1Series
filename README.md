@@ -6,6 +6,9 @@ Inspired by the valuable work done by [swilsonnc](https://github.com/swilsonnc) 
 
 ## NOTE: DO NOT INSTALL THE CFS FIRMWARE THAT COMES WITH THE KIT.  THIS HAS NOT BEEN TESTED WITH THAT FIRMWARE.  ONLY USE THE NON-CFS FIRMWARE.  CURRENTLY IN TESTING.
 
+I now have a K2 Plus with CFS and have been working with it.  I still have my K1 Max and ACE (and still use it) and will continue answering what questions come up or fixing any bugs
+that get found but won't be actively updating this.  I have the source code for the mainsail and fluidd configs if someone wants to work on improving them.
+
 ## 📋 Table of Contents
 
 - [Credits](#-credits)
@@ -40,6 +43,8 @@ This project is based on excellent work from:
 - **Temperature Monitoring**: Ace chamber temp added to Temperatures panel
 - **Debug Tools**: Comprehensive diagnostic commands
 - **Seamless Integration**: Native Klipper integration
+- **Mainsail Panel**: optional Mainsail Panel for status and control
+- **Fluidd Panel**: optional Fluidd Panel for status and control
 
 ## 🔧 Hardware Requirements
 
@@ -56,17 +61,13 @@ This project is based on excellent work from:
 
 ## Images
 <picture>
-  <a href="img/IMG_6935.jpeg" target=_new><img src="img/IMG_6935.jpeg" alt="" style="width:180px;"></a>
-  <a href="img/IMG_6936.jpeg" target=_new><img src="img/IMG_6936.jpeg" alt="" style="width:180px;"></a>
-  <a href="img/IMG_6937.jpeg" target=_new><img src="img/IMG_6937.jpeg" alt="" style="width:180px;"></a>
-  <a href="img/IMG_6938.jpeg" target=_new><img src="img/IMG_6938.jpeg" alt="" style="width:180px;"></a>
-  <a href="img/IMG_6939.jpeg" target=_new><img src="img/IMG_6939.jpeg" alt="" style="width:180px;"></a>
-  <a href="img/bed_exclusion.png" target=_new><img src="img/bed_exclusion.png" alt="" style="width:300px;"></a>
-  <a href="img/start_gcode.png" target=_new><img src="img/start_gcode.png" alt="" style="width:300px;"></a>
-  <a href="img/before_layer_change_gcode.png" target=_new><img src="img/before_layer_change_gcode.png" alt="" style="width:300px;"></a>
-  <a href="img/pause_gcode.png" target=_new><img src="img/pause_gcode.png" alt="" style="width:300px;"></a>
-  <a href="img/multimaterial.png" target=_new><img src="img/multimaterial.png" alt="" style="width:300px;"></a>
-  <a href="img/extruder.png" target=_new><img src="img/extruder.png" alt="" style="width:300px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6935.jpeg" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6935.jpeg" alt="" style="width:180px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6936.jpeg" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6936.jpeg" alt="" style="width:180px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6937.jpeg" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6937.jpeg" alt="" style="width:180px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6938.jpeg" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6938.jpeg" alt="" style="width:180px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6939.jpeg" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/IMG_6939.jpeg" alt="" style="width:180px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/mainsail.png" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/mainsail.png" alt="" style="width:180px;"></a>
+  <a href="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/fluidd.png" target=_new><img src="https://github.com/swilsonnc/ACEPROK1Max/blob/master/img/fluidd.png" alt="" style="width:180px;"></a>
 </picture>
 
 ## 📦 Installation
@@ -84,7 +85,7 @@ git clone https://github.com/studioeng/ACEProK1Series.git
 ```
 
 ### 3. Update Printer Configuration
-Add near the top of your `printer.cfg`:
+Add near the top of your `printer.cfg` (preferably above the other [include] lines):
 ```ini
 [include ace.cfg]
 ```
@@ -121,11 +122,27 @@ SET_GCODE_VARIABLE MACRO=_GLOBAL_VARS VARIABLE=extruder_target VALUE={params.EXT
 ```
 
 ### Orca SLicer Settings
-I use Orca Slicer and you can refer to the images above for my settings for it.
+I use Orca Slicer and you can refer to the images below for my settings for it.
 Pay special attention to the bed exclusion settings as these are very important or your extruder
 motor may contact the cutter piece or the purge bucket and break something.
 
+Make sure you setup multiple filaments in Orca.  Make sure when you are slicing a part that you 
+click the first layer on the right hand bar and select change filament.  That will set the
+current_extruder that your macro's will need in order to work correctly.
+
+You can also use the paint tool and paint the model with your loaded filaments and it will print it 
+that way.  Just make sure your colors and types match what is actually in the ace.
+
 If you use a different slicer you will have to figure out where these settings go on your own.
+
+<picture>
+    <a href="img/bed_exclusion.png" target=_new><img src="img/bed_exclusion.png" alt="" style="width:300px;"></a>
+    <a href="img/start_gcode.png" target=_new><img src="img/start_gcode.png" alt="" style="width:300px;"></a>
+    <a href="img/before_layer_change_gcode.png" target=_new><img src="img/before_layer_change_gcode.png" alt="" style="width:300px;"></a>
+    <a href="img/pause_gcode.png" target=_new><img src="img/pause_gcode.png" alt="" style="width:300px;"></a>
+    <a href="img/multimaterial.png" target=_new><img src="img/multimaterial.png" alt="" style="width:300px;"></a>
+    <a href="img/extruder.png" target=_new><img src="img/extruder.png" alt="" style="width:300px;"></a>
+</picture>
 
 ### Pin-Configuration
 ![Connector Pinout](/img/connector.png)
@@ -250,10 +267,13 @@ Connect the ACE Pro unit to your printer's host computer via USB. The driver wil
 
 ### Splitter Configuration
 Use a BAMBULAB-compatible filament splitter for optimal performance with the ACE Pro system or any good smooth printable splitter.
+I am using this one and it has never failed me once.  [4-in-1 PTFE adapter](https://www.printables.com/model/808136-4-in-1-ptfe-adapter)
 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H81W6DLY)
 
 ### Development Setup
 1. Fork the repository
